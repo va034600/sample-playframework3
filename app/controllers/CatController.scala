@@ -2,11 +2,11 @@ package controllers
 
 import dao.CatDAO
 import models.Cat
-import play.api.libs.json.{JsNull, Json, Writes}
+import play.api.libs.json.Json
 import play.api.mvc._
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 class CatController @Inject()(
                                catDao: CatDAO,
@@ -31,7 +31,6 @@ class CatController @Inject()(
     catDao.insert(cat2)
 
     val h = catDao.all().map(rows => rows.head)
-    implicit val barFormat = Json.writes[Cat]
     h.map { hh => Ok(Json.toJson(hh)) }
   }
 
@@ -43,7 +42,6 @@ class CatController @Inject()(
     catDao.insert(cat2)
 
     catDao.all().map {
-      implicit val barFormat2 = Json.writes[Cat]
       rows => Ok(Json.toJson(rows))
     }
   }
