@@ -13,3 +13,4 @@ GET     /hello                      controllers.HelloController.hello()
 
 GET     /cats                       controllers.CatController.index()
 GET     /cats2                      controllers.CatController.index2()
+GET     /cats3                      controllers.CatController.index3()

@@ -35,4 +35,16 @@ class CatController @Inject()(
     h.map { hh => Ok(Json.toJson(hh)) }
   }
 
+  def index3 = Action.async { implicit request =>
+    val cat: Cat = new Cat("aa", "bb")
+    catDao.insert(cat)
+
+    val cat2: Cat = new Cat("aa2", "bb2")
+    catDao.insert(cat2)
+
+    catDao.all().map {
+      implicit val barFormat2 = Json.writes[Cat]
+      rows => Ok(Json.toJson(rows))
+    }
+  }
 }
